@@ -28,7 +28,13 @@ const Skills: React.FC = () => {
   return (
     <div style={styles.container}>
       {skillsInfo.map(({ icon, title, skills: cardSkills }, key) => (
-        <SkillCard key={key} icon={icon} title={title} skills={cardSkills} />
+        <SkillCard
+          key={key}
+          id={key}
+          icon={icon}
+          title={title}
+          skills={cardSkills}
+        />
       ))}
     </div>
   );

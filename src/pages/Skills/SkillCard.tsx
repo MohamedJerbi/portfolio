@@ -1,5 +1,4 @@
-import React, { CSSProperties, useState } from "react";
-import { motion } from "framer-motion";
+import React, { CSSProperties, useEffect, useState } from "react";
 import "./styles.css";
 
 interface Icon {
@@ -9,6 +8,7 @@ interface Icon {
 
 interface Props {
   icon: Icon;
+  id: number;
   title: string;
   skills: Array<string>;
 }
@@ -21,6 +21,8 @@ interface StyleHTMLAttributes {
   textContainer?: CSSProperties;
 }
 
+const perspective: string = "1000px";
+
 const styles: StyleHTMLAttributes = {
   container: {
     display: "flex",
@@ -32,10 +34,8 @@ const styles: StyleHTMLAttributes = {
     backgroundColor: "white",
     margin: "3vh",
     boxShadow: "0 5px 202px rgba(0,0,0,0,5)",
-    transform: "perspective(800px)",
-    transitionDuration: "500ms",
+    transform: `perspective(${perspective})`,
     transformStyle: "preserve-3d",
-    cursor: "pointer",
   },
   title: {
     fontFamily: "Poppins",
@@ -59,29 +59,51 @@ const styles: StyleHTMLAttributes = {
   },
 };
 
-const SkillCard: React.FC<Props> = ({ icon, title, skills }) => {
-  const [hovering, setHovering]: any = useState([0, 0]);
+const SkillCard: React.FC<Props> = ({ icon, title, skills, id }) => {
+  const [card, setCard] = useState<HTMLElement | null | any>(
+    document.querySelector(`.card${id}`)
+  );
+
+  useEffect(() => {
+    setCard(document.querySelector(`.card${id}`));
+  }, [id]);
+
+  const onMouseMove = (e: Element | null | any) => {
+    if (!e) return;
+    const rotationDegree = 25;
+    const cardWidth = card.offsetWidth;
+    const cardHeight = card.offsetHeight;
+    const centerX = card.offsetLeft + cardWidth / 2;
+    const centerY = card.offsetTop + cardHeight / 2;
+    const mouseX = e.clientX - centerX;
+    const mouseY = e.clientY - centerY;
+    const rotateX = (
+      (-1 * (rotationDegree * mouseY)) /
+      (cardHeight / 2)
+    ).toFixed(2);
+    const rotateY = ((rotationDegree * mouseX) / (cardWidth / 2)).toFixed(2);
+    card.style.transform = `perspective(${perspective}) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  };
+  const setTransition = () => {
+    card.style.transition = `transform 300ms cubic-bezier(.03, .98, .52, .99)`;
+    setTimeout(() => {
+      card.style.transition = "";
+    }, 1000);
+  };
+  const onMouseLeave = () => {
+    setTimeout(() => {
+      setTransition();
+      card.style.transform = `perspective(${perspective}) rotateX(0deg) rotateY(0deg)`;
+    }, 100);
+  };
 
   return (
-    <motion.div
-      animate={
-        hovering
-          ? {
-              transitionProperty:
-                "0.6s cubic-bezier(0.23, 1, 0.32, 1),box-shadow 2s cubic-bezier(0.23, 1, 0.32, 1)",
-              boxShadow:
-                "rgba(white, 0.2) 0 0 40px 5px,rgba(white, 1) 0 0 0 1px,rgba(black, 0.66) 0 30px 60px 0,inset #333 0 0 0 5px,inset white 0 0 0 6px",
-              rotateY: 5,
-              rotateX: 5,
-            }
-          : {}
-      }
+    <div
+      className={"card" + id}
       style={styles.container}
-      onMouseMove={(e) => {
-        console.log(e);
-        setHovering([hovering[0] + e.movementY, hovering[1] + e.movementX]);
-      }}
-      onMouseLeave={() => setHovering([0, 0])}
+      onMouseMoveCapture={onMouseMove}
+      onMouseEnter={setTransition}
+      onMouseLeave={onMouseLeave}
     >
       <img style={styles.icon} src={icon.iconSrc} alt={title + " icon"} />
       <p style={styles.title}>{title}</p>
@@ -94,7 +116,7 @@ const SkillCard: React.FC<Props> = ({ icon, title, skills }) => {
           ))}
         </ul>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
