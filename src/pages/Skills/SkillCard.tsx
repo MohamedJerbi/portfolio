@@ -79,9 +79,12 @@ const SkillCard: React.FC<Props> = ({ icon, title, skills, id }) => {
     const mouseY = e.clientY - centerY;
     const rotateX = (
       (-1 * (rotationDegree * mouseY)) /
-      (cardHeight / 2)
+      (cardHeight / 2) /
+      2
     ).toFixed(2);
-    const rotateY = ((rotationDegree * mouseX) / (cardWidth / 2)).toFixed(2);
+    const rotateY = ((rotationDegree * mouseX) / (cardWidth / 2) / 2).toFixed(
+      2
+    );
     card.style.transform = `perspective(${perspective}) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
   };
   const setTransition = () => {
