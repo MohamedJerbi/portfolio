@@ -12,6 +12,7 @@ interface Props {
   description: string;
   responsabilities: Array<string>;
   image: Image;
+  mobile: boolean;
 }
 
 interface StyleHTMLAttributes {
@@ -21,12 +22,19 @@ interface StyleHTMLAttributes {
   title?: CSSProperties;
 }
 
-const styles: StyleHTMLAttributes = {
-  container: {
-    display: "grid",
-    gridTemplateColumns: "auto 40vw",
-    position: "relative",
-  },
+const generateStyles: (mobile: boolean) => StyleHTMLAttributes = (mobile) => ({
+  container: mobile
+    ? {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-evenly",
+        margin: 16,
+      }
+    : {
+        display: "grid",
+        gridTemplateColumns: "auto 40vw",
+        position: "relative",
+      },
   title: {
     fontFamily: "Poppins",
     fontStyle: "normal",
@@ -44,12 +52,13 @@ const styles: StyleHTMLAttributes = {
   },
   img: {
     display: "block",
-    width: "39vw",
+    width: mobile ? "100%" : "39vw",
     objectFit: "cover",
     transitionDuration: "300ms",
     transitionTimingFunction: "ease",
+    margin: mobile ? "16px 0" : 0,
   },
-};
+});
 
 const randomNumber: Function = (max: number, min: number) => {
   return Math.random() * (max - min) + min;
@@ -60,9 +69,10 @@ const ProjectDetails: React.FC<Props> = ({
   description,
   responsabilities,
   image,
+  mobile,
 }) => {
-  const { height, width } = useWindowDimensions();
-
+  const { width, height } = useWindowDimensions();
+  const styles = generateStyles(mobile);
   return (
     <div style={styles.container}>
       <div>
@@ -73,25 +83,29 @@ const ProjectDetails: React.FC<Props> = ({
             <li key={key}> {resp}</li>
           ))}
         </ul>
-        <CercleShape
-          size={randomNumber(100, 200)}
-          left={randomNumber(width / 100, width / 50)}
-        />
-        <CercleShape
-          size={randomNumber(50, 100)}
-          top={randomNumber(height / 10, height / 9)}
-          left={randomNumber(width / 5, width / 3)}
-        />
-        <CercleShape
-          size={randomNumber(75, 175)}
-          top={randomNumber(height / 7, height / 4)}
-          left={randomNumber(width / 7, width / 3)}
-        />
-        <CercleShape
-          size={randomNumber(125, 175)}
-          top={randomNumber(height / 5, height / 2.5)}
-          left={randomNumber(width / 4, width / 1.5)}
-        />
+        {!mobile && (
+          <>
+            <CercleShape
+              size={randomNumber(100, 200)}
+              left={randomNumber(width / 100, width / 50)}
+            />
+            <CercleShape
+              size={randomNumber(50, 100)}
+              top={randomNumber(height / 10, height / 9)}
+              left={randomNumber(width / 5, width / 3)}
+            />
+            <CercleShape
+              size={randomNumber(75, 175)}
+              top={randomNumber(height / 7, height / 4)}
+              left={randomNumber(width / 7, width / 3)}
+            />
+            <CercleShape
+              size={randomNumber(125, 175)}
+              top={randomNumber(height / 5, height / 2.5)}
+              left={randomNumber(width / 4, width / 1.5)}
+            />
+          </>
+        )}
       </div>
       <img
         src={image.imageSrc}

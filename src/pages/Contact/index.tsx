@@ -95,7 +95,7 @@ const styles: StyleHTMLAttributes = {
   btnHover: { border: "2px solid #CCCCCC" },
 };
 
-const Contact: React.FC = () => {
+const Contact: React.FC<{ mobile?: boolean }> = ({ mobile }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");

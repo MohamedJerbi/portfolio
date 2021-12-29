@@ -19,29 +19,33 @@ const projectsTemplateRows: Function = (projectsInfo: Array<Object>) => {
   projectsInfo.map(() => (rows += "50vh "));
   return rows;
 };
-const styles: StyleHTMLAttributes = {
+const generateStyles: (mobile: boolean) => StyleHTMLAttributes = (mobile) => ({
   container: {
     display: "grid",
     placeItems: "center",
     position: "relative",
     margin: "auto",
-    width: 808,
+    width: mobile ? "auto" : "808px",
     height: "calc(100vh - 49px)",
+    flexWrap: "wrap",
   },
   text: {
     position: "absolute",
-    top: "calc(18vh - 37px)",
+    top: mobile ? "20vh" : "calc(18vh - 37px)",
     left: 0,
     width: 292,
     height: 172,
     fontFamily: "Sahitya",
     fontSize: 28,
     color: " #2F2E41",
+    margin: mobile ? "-16px 16px" : 0,
+    zIndex: 1,
   },
   img: {
     position: "absolute",
-    top: "18vh",
+    top: mobile ? "25vh" : "18vh",
     left: 0,
+    width: mobile ? "100vw" : "auto",
   },
   btnContainer: {
     position: "absolute",
@@ -67,26 +71,33 @@ const styles: StyleHTMLAttributes = {
     textDecoration: "none",
     alignSelf: "center",
   },
-  projectsContainer: {
-    display: "grid",
-    gridTemplateColumns: "10vw auto",
-    gridTemplateRows: projectsTemplateRows(projectsInfo),
-  },
+  projectsContainer: mobile
+    ? {
+        display: "flex",
+        flexDirection: "column",
+      }
+    : {
+        display: "grid",
+        gridTemplateColumns: "10vw auto",
+        gridTemplateRows: projectsTemplateRows(projectsInfo),
+      },
   title: {
     fontFamily: "Poppins",
     fontStyle: "normal",
     fontWeight: "bold",
     fontSize: 18,
-    lineHeight: 27,
+    lineHeight: mobile ? 0 : 27,
     display: "flex",
     alignItems: "center",
     letterSpacing: "0.05em",
     textTransform: "uppercase",
     color: "#9848D7",
+    marginLeft: mobile ? 16 : 0,
   },
-};
+});
 
-const Projects: React.FC = () => {
+const Projects: React.FC<{ mobile: boolean }> = ({ mobile }) => {
+  const styles = generateStyles(mobile);
   return (
     <div>
       <div style={styles.container}>
@@ -115,6 +126,7 @@ const Projects: React.FC = () => {
                 description={description}
                 responsabilities={responsabilities}
                 image={image}
+                mobile={mobile}
               />
             </Fragment>
           )

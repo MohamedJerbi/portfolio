@@ -1,20 +1,43 @@
+import { CSSProperties } from "react";
 import Projects from "./pages/Projects";
 import Skills from "./pages/Skills";
 import Contact from "./pages/Contact";
 import palette from "./palette";
+import useWindowDimensions from "./pages/Projects/useWindowDimensions";
 
-const styles = {
+interface StyleHTMLAttributes {
+  container?: CSSProperties;
+  text?: CSSProperties;
+  img?: CSSProperties;
+  btnContainer?: CSSProperties;
+  logo?: CSSProperties;
+  navBackground?: CSSProperties;
+  nav?: CSSProperties;
+}
+
+const generateStyles: (mobile: boolean) => StyleHTMLAttributes = (
+  mobile: boolean
+) => ({
   container: {
     display: "grid",
-    gridTemplateColumns: "auto 808px auto",
+    gridTemplateColumns: mobile ? " auto " : "auto 808px auto",
     gridTemplateRows: "49px",
   },
-  nav: {
-    display: "grid",
-    gridTemplateColumns: "auto 108px 60px",
-    gridTemplateRows: "49px",
-    backgroundColor: palette.background.blue,
-  },
+
+  nav: mobile
+    ? {
+        display: "grid",
+        gridTemplateColumns: "50% auto auto",
+        gridTemplateRows: "49px",
+        paddingLeft: 49,
+        backgroundColor: palette.background.blue,
+      }
+    : {
+        display: "grid",
+        gridTemplateColumns: "auto 108px 60px",
+        gridTemplateRows: "49px",
+        backgroundColor: palette.background.blue,
+      },
   text: {
     fontFamily: "Lato",
     fontSize: 17,
@@ -27,13 +50,17 @@ const styles = {
   },
   logo: { fontFamily: "Sawarabi Gothic", fontSize: 19, lineHeight: 29 },
   navBackground: { backgroundColor: palette.background.blue },
-};
+});
 
 function App() {
+  const { width } = useWindowDimensions();
+  const mobile = width < 850;
+  const styles = generateStyles(mobile);
+
   return (
-    <div style={{ scale: 0.4 }}>
+    <div>
       <div style={styles.container}>
-        <div style={styles.navBackground} />
+        {!mobile && <div style={styles.navBackground} />}
         <div style={styles.nav}>
           <p
             style={{
@@ -50,11 +77,11 @@ function App() {
             Contact
           </a>
         </div>
-        <div style={styles.navBackground} />
+        {!mobile && <div style={styles.navBackground} />}
       </div>
-      <Projects />
+      <Projects mobile={mobile} />
       <Skills />
-      <Contact />
+      <Contact mobile={mobile} />
     </div>
   );
 }
