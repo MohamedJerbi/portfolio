@@ -28,8 +28,8 @@ const styles: StyleHTMLAttributes = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    width: 300,
-    height: 500,
+    width: 250,
+    height: 400,
     borderRadius: 20,
     backgroundColor: "white",
     margin: "3vh",
@@ -40,8 +40,9 @@ const styles: StyleHTMLAttributes = {
   title: {
     fontFamily: "Poppins",
     fontWeight: "bold",
-    fontSize: 22,
+    fontSize: 19,
     alignSelf: "center",
+    lineHeight: 0,
   },
   textContainer: {
     display: "grid",
@@ -50,7 +51,7 @@ const styles: StyleHTMLAttributes = {
   },
   text: {
     fontFamily: "Poppins",
-    fontSize: 20,
+    fontSize: 17,
     lineHeight: 1.7,
   },
   icon: {
