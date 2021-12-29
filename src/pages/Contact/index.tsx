@@ -101,7 +101,7 @@ const Contact: React.FC = () => {
   const [details, setDetails] = useState("");
 
   return (
-    <div>
+    <div id="contact">
       <div style={styles.container}>
         <p style={styles.title}>Get in touch</p>
         <div style={styles.boxesContainer}>
