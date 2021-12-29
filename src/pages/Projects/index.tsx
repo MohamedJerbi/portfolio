@@ -111,7 +111,6 @@ const Projects: React.FC = () => {
             <Fragment key={key}>
               <div />
               <ProjectDetails
-                id={key}
                 title={title}
                 description={description}
                 responsabilities={responsabilities}

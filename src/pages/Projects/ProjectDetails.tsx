@@ -1,4 +1,4 @@
-import React, { CSSProperties, useEffect, useState } from "react";
+import React, { CSSProperties } from "react";
 import CercleShape from "./CercleShape";
 import useWindowDimensions from "./useWindowDimensions";
 
@@ -8,7 +8,6 @@ interface Image {
 }
 
 interface Props {
-  id: number;
   title: string;
   description: string;
   responsabilities: Array<string>;
@@ -57,20 +56,12 @@ const randomNumber: Function = (max: number, min: number) => {
 };
 
 const ProjectDetails: React.FC<Props> = ({
-  id,
   title,
   description,
   responsabilities,
   image,
 }) => {
   const { height, width } = useWindowDimensions();
-  const [img, setImg] = useState<HTMLElement | null | any>(
-    document.querySelector(`.img${id}`)
-  );
-
-  useEffect(() => {
-    setImg(document.querySelector(`.img${id}`));
-  }, [id]);
 
   return (
     <div style={styles.container}>
@@ -103,15 +94,14 @@ const ProjectDetails: React.FC<Props> = ({
         />
       </div>
       <img
-        className={"img" + id}
         src={image.imageSrc}
-        onMouseMoveCapture={() => {
-          if (!img) return;
+        onMouseMoveCapture={(e) => {
+          const img: any = e.currentTarget;
           img.style["box-shadow"] = "1px 1px 10px 1px #000000";
           img.style["zIndex"] = 1;
         }}
-        onMouseLeave={() => {
-          if (!img) return;
+        onMouseLeave={(e) => {
+          const img: any = e.currentTarget;
           img.style["box-shadow"] = "0px 0px 0px 0px #000000";
           img.style["zIndex"] = 0;
         }}

@@ -1,5 +1,4 @@
 import React, { CSSProperties } from "react";
-import { motion } from "framer-motion";
 
 interface Props {
   icon: string;
@@ -22,6 +21,9 @@ const styles: StyleHTMLAttributes = {
     width: 300,
     height: 140,
     paddingTop: 12,
+    transitionDuration: "600ms",
+    transitionTimingFunction: "ease-out",
+    cursor: "pointer",
   },
   icon: { margin: "auto" },
   text: {
@@ -30,15 +32,29 @@ const styles: StyleHTMLAttributes = {
     textTransform: "lowercase",
     color: "#2F2E41",
   },
-  boxHover: { cursor: "pointer", backgroundColor: "white" },
+  boxHover: {
+    cursor: "pointer",
+    backgroundColor: "white",
+  },
 };
 
 const ContactBox: React.FC<Props> = ({ icon, text }) => {
   return (
-    <motion.div style={styles.container} whileHover={styles.boxHover}>
+    <div
+      className="box"
+      onMouseMoveCapture={(e) => {
+        const box: any = e.currentTarget;
+        box.style["background-color"] = "white";
+      }}
+      onMouseLeave={(e) => {
+        const box: any = e.currentTarget;
+        box.style["background-color"] = "transparent";
+      }}
+      style={styles.container}
+    >
       <img style={styles.icon} src={icon} alt="icon" />
       <p style={styles.text}>{text}</p>
-    </motion.div>
+    </div>
   );
 };
 

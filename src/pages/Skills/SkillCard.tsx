@@ -1,4 +1,4 @@
-import React, { CSSProperties, useEffect, useState } from "react";
+import React, { CSSProperties } from "react";
 import "./styles.css";
 
 interface Icon {
@@ -8,7 +8,6 @@ interface Icon {
 
 interface Props {
   icon: Icon;
-  id: number;
   title: string;
   skills: Array<string>;
 }
@@ -60,17 +59,9 @@ const styles: StyleHTMLAttributes = {
   },
 };
 
-const SkillCard: React.FC<Props> = ({ icon, title, skills, id }) => {
-  const [card, setCard] = useState<HTMLElement | null | any>(
-    document.querySelector(`.card${id}`)
-  );
-
-  useEffect(() => {
-    setCard(document.querySelector(`.card${id}`));
-  }, [id]);
-
+const SkillCard: React.FC<Props> = ({ icon, title, skills }) => {
   const onMouseMove = (e: Element | null | any) => {
-    if (!e) return;
+    const card: any = e.currentTarget;
     const rotationDegree = 25;
     // the lower the rotationIntensity value is the higher the rotation value
     const rotationIntensity = 2;
@@ -92,25 +83,25 @@ const SkillCard: React.FC<Props> = ({ icon, title, skills, id }) => {
     ).toFixed(2);
     card.style.transform = `perspective(${perspective}) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
   };
-  const setTransition = () => {
+  const setTransition = (card: any) => {
     card.style.transition = `transform 300ms cubic-bezier(.03, .98, .52, .99)`;
     setTimeout(() => {
       card.style.transition = "";
     }, 1000);
   };
-  const onMouseLeave = () => {
+  const onMouseLeave = (e: any) => {
+    const card: any = e.currentTarget;
     setTimeout(() => {
-      setTransition();
+      setTransition(card);
       card.style.transform = `perspective(${perspective}) rotateX(0deg) rotateY(0deg)`;
     }, 100);
   };
 
   return (
     <div
-      className={"card" + id}
       style={styles.container}
       onMouseMoveCapture={onMouseMove}
-      onMouseEnter={setTransition}
+      onMouseEnter={(e) => setTransition(e.currentTarget)}
       onMouseLeave={onMouseLeave}
     >
       <img style={styles.icon} src={icon.iconSrc} alt={title + " icon"} />
