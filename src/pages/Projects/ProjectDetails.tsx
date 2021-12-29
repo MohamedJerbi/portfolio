@@ -1,5 +1,4 @@
-import React, { CSSProperties } from "react";
-import { motion } from "framer-motion";
+import React, { CSSProperties, useEffect, useState } from "react";
 import CercleShape from "./CercleShape";
 import useWindowDimensions from "./useWindowDimensions";
 
@@ -9,6 +8,7 @@ interface Image {
 }
 
 interface Props {
+  id: number;
   title: string;
   description: string;
   responsabilities: Array<string>;
@@ -47,6 +47,8 @@ const styles: StyleHTMLAttributes = {
     display: "block",
     width: "39vw",
     objectFit: "cover",
+    transitionDuration: "300ms",
+    transitionTimingFunction: "ease",
   },
 };
 
@@ -55,12 +57,21 @@ const randomNumber: Function = (max: number, min: number) => {
 };
 
 const ProjectDetails: React.FC<Props> = ({
+  id,
   title,
   description,
   responsabilities,
   image,
 }) => {
   const { height, width } = useWindowDimensions();
+  const [img, setImg] = useState<HTMLElement | null | any>(
+    document.querySelector(`.img${id}`)
+  );
+
+  useEffect(() => {
+    setImg(document.querySelector(`.img${id}`));
+  }, [id]);
+
   return (
     <div style={styles.container}>
       <div>
@@ -91,12 +102,18 @@ const ProjectDetails: React.FC<Props> = ({
           left={randomNumber(width / 4, width / 1.5)}
         />
       </div>
-      <motion.img
+      <img
+        className={"img" + id}
         src={image.imageSrc}
-        whileHover={{
-          boxShadow: " 1px 1px 10px 1px #000000",
-          height: "auto",
-          zIndex: 1,
+        onMouseMoveCapture={() => {
+          if (!img) return;
+          img.style["box-shadow"] = "1px 1px 10px 1px #000000";
+          img.style["zIndex"] = 1;
+        }}
+        onMouseLeave={() => {
+          if (!img) return;
+          img.style["box-shadow"] = "0px 0px 0px 0px #000000";
+          img.style["zIndex"] = 0;
         }}
         style={{ ...image.imageStyles, ...styles.img }}
         alt={`Project ${title}`}

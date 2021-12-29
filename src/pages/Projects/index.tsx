@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react";
+import React, { CSSProperties, Fragment } from "react";
 import ProjectDetails from "./ProjectDetails";
 import projectsInfo from "./projectsInfo";
 import HelloSVG from "../../assets/Hello.svg";
@@ -48,7 +48,7 @@ const styles: StyleHTMLAttributes = {
     top: "72vh",
     backgroundColor: palette.background.blue,
     width: 175,
-    height: 60,
+    height: 50,
     borderRadius: "0 20px 0 20px",
     display: "grid",
     placeItems: "center",
@@ -58,9 +58,8 @@ const styles: StyleHTMLAttributes = {
     borderRadius: "0 20px 0 20px",
     border: "solid 3px white",
     width: 155,
-    height: 37,
     fontFamily: "Sahitya",
-    fontSize: 21,
+    fontSize: 19,
     color: "white",
     backgroundColor: palette.background.blue,
     cursor: "pointer",
@@ -109,15 +108,16 @@ const Projects: React.FC = () => {
         <p style={styles.title}>Featured Projects</p>
         {projectsInfo.map(
           ({ title, description, responsabilities, image }, key) => (
-            <>
+            <Fragment key={key}>
               <div />
               <ProjectDetails
+                id={key}
                 title={title}
                 description={description}
                 responsabilities={responsabilities}
                 image={image}
               />
-            </>
+            </Fragment>
           )
         )}
       </div>
