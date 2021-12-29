@@ -45,12 +45,13 @@ const styles: StyleHTMLAttributes = {
   input: {
     width: 380,
     lineHeight: 1.5,
-    border: "3px solid #CCCCCC",
+    border: "2px solid #CCCCCC",
     boxSizing: "border-box",
-    borderRadius: 15,
-    fontSize: 26,
-    marginLeft: -2,
+    borderRadius: 10,
+    fontSize: 20,
+    marginLeft: -4,
     color: palette.text.grey,
+    outlineColor: "#9848D7",
   },
   boxesContainer: {
     display: "flex",
@@ -68,19 +69,19 @@ const styles: StyleHTMLAttributes = {
   },
   text: {
     fontFamily: "Poppins",
-    fontSize: 26,
+    fontSize: 19,
     letterSpacing: "0.02em",
     color: palette.text.grey,
   },
   button: {
-    width: 209,
-    height: 48,
+    width: 150,
+    height: 36,
     fontFamily: "Poppins",
-    fontSize: 26,
+    fontSize: 21,
     letterSpacing: "0.02em",
     color: "#FFFFFF",
     backgroundColor: "#9848D7",
-    borderRadius: 20,
+    borderRadius: 18,
     border: "none",
     cursor: "pointer",
   },
@@ -91,7 +92,7 @@ const styles: StyleHTMLAttributes = {
     width: "100%",
     marginTop: "-5vh",
   },
-  btnHover: { border: "3px solid #CCCCCC" },
+  btnHover: { border: "2px solid #CCCCCC" },
 };
 
 const Contact: React.FC = () => {
@@ -123,6 +124,7 @@ const Contact: React.FC = () => {
                 style={styles.input}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                minLength={3}
               />
             </div>
             <div>
@@ -131,6 +133,7 @@ const Contact: React.FC = () => {
                 style={styles.input}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                type="email"
               />
             </div>
           </div>
@@ -147,7 +150,7 @@ const Contact: React.FC = () => {
             <textarea
               rows={4}
               minLength={10}
-              style={{ ...styles.input, width: "calc(100% + 2px)" }}
+              style={{ ...styles.input, width: "calc(100% + 4px)" }}
               value={details}
               onChange={(e) => setDetails(e.target.value)}
             />

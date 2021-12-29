@@ -38,7 +38,7 @@ const styles: StyleHTMLAttributes = {
   },
   text: {
     fontFamily: "Sahitya",
-    fontSize: "20px",
+    fontSize: 20,
     lineHeight: "31px",
     marginRight: "3vw",
   },
