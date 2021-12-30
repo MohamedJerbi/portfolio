@@ -2,13 +2,7 @@ import React, { CSSProperties } from "react";
 import SkillCard from "./SkillCard";
 import skillsInfo from "./skillsInfo";
 import palette from "../../palette";
-
-interface StyleHTMLAttributes {
-  container?: CSSProperties;
-  text?: CSSProperties;
-  img?: CSSProperties;
-  title?: CSSProperties;
-}
+import { StyleHTMLAttributes } from "../../utils/interfaces";
 
 const styles: StyleHTMLAttributes = {
   container: {

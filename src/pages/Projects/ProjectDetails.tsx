@@ -1,4 +1,5 @@
 import React, { CSSProperties } from "react";
+import { StyleHTMLAttributes } from "../../utils/interfaces";
 import CercleShape from "./CercleShape";
 import useWindowDimensions from "./useWindowDimensions";
 
@@ -13,13 +14,6 @@ interface Props {
   responsabilities: Array<string>;
   image: Image;
   mobile: boolean;
-}
-
-interface StyleHTMLAttributes {
-  container?: CSSProperties;
-  text?: CSSProperties;
-  img?: CSSProperties;
-  title?: CSSProperties;
 }
 
 const generateStyles: (mobile: boolean) => StyleHTMLAttributes = (mobile) => ({

@@ -4,16 +4,7 @@ import Skills from "./pages/Skills";
 import Contact from "./pages/Contact";
 import palette from "./palette";
 import useWindowDimensions from "./pages/Projects/useWindowDimensions";
-
-interface StyleHTMLAttributes {
-  container?: CSSProperties;
-  text?: CSSProperties;
-  img?: CSSProperties;
-  btnContainer?: CSSProperties;
-  logo?: CSSProperties;
-  navBackground?: CSSProperties;
-  nav?: CSSProperties;
-}
+import { StyleHTMLAttributes } from "./utils/interfaces";
 
 const generateStyles: (mobile: boolean) => StyleHTMLAttributes = (
   mobile: boolean

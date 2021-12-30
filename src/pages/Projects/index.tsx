@@ -3,16 +3,7 @@ import ProjectDetails from "./ProjectDetails";
 import projectsInfo from "./projectsInfo";
 import HelloSVG from "../../assets/Hello.svg";
 import palette from "../../palette";
-
-interface StyleHTMLAttributes {
-  container?: CSSProperties;
-  text?: CSSProperties;
-  img?: CSSProperties;
-  btnContainer?: CSSProperties;
-  btn?: CSSProperties;
-  projectsContainer?: CSSProperties;
-  title?: CSSProperties;
-}
+import { StyleHTMLAttributes } from "../../utils/interfaces";
 
 const projectsTemplateRows: Function = (projectsInfo: Array<Object>) => {
   let rows = "27px ";

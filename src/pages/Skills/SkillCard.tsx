@@ -1,4 +1,5 @@
 import React, { CSSProperties } from "react";
+import { StyleHTMLAttributes } from "../../utils/interfaces";
 import "./styles.css";
 
 interface Icon {
@@ -10,14 +11,6 @@ interface Props {
   icon: Icon;
   title: string;
   skills: Array<string>;
-}
-
-interface StyleHTMLAttributes {
-  container?: CSSProperties;
-  icon?: CSSProperties;
-  title?: CSSProperties;
-  text?: CSSProperties;
-  textContainer?: CSSProperties;
 }
 
 const perspective: string = "1000px";

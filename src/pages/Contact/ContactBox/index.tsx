@@ -1,18 +1,20 @@
 import React, { CSSProperties } from "react";
+import { StyleHTMLAttributes } from "../../../utils/interfaces";
 
 interface Props {
   icon: string;
   text: String;
+  mobile: boolean;
 }
 
-interface StyleHTMLAttributes {
-  container?: CSSProperties;
-  icon?: CSSProperties;
+interface MyStyleHTMLAttributes extends StyleHTMLAttributes {
+  [prop: string]: CSSProperties;
   boxHover?: any;
-  text?: CSSProperties;
 }
 
-const styles: StyleHTMLAttributes = {
+const generateStyles: (mobile: boolean) => MyStyleHTMLAttributes = (
+  mobile
+) => ({
   container: {
     display: "flex",
     flexDirection: "column",
@@ -36,9 +38,10 @@ const styles: StyleHTMLAttributes = {
     cursor: "pointer",
     backgroundColor: "white",
   },
-};
+});
 
-const ContactBox: React.FC<Props> = ({ icon, text }) => {
+const ContactBox: React.FC<Props> = ({ icon, text, mobile }) => {
+  const styles = generateStyles(mobile);
   return (
     <div
       className="box"

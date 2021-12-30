@@ -7,19 +7,11 @@ import Mail from "../../assets/ContactIcons/mail.svg";
 import palette from "../../palette";
 
 interface StyleHTMLAttributes {
-  container?: CSSProperties;
-  title?: CSSProperties;
-  text?: CSSProperties;
-  input?: CSSProperties;
-  boxesContainer?: CSSProperties;
-  subContainer?: CSSProperties;
-  button?: CSSProperties;
-  btnContainer?: CSSProperties;
-  block?: CSSProperties;
+  [prop: string]: CSSProperties;
   btnHover?: any;
 }
 
-const styles: StyleHTMLAttributes = {
+const generateStyles: (mobile: boolean) => StyleHTMLAttributes = (mobile) => ({
   container: {
     backgroundColor: "#FFD8D8",
     clipPath: "polygon(0 5vh, 100% 0,100% 100% , 0 100%)",
@@ -43,7 +35,7 @@ const styles: StyleHTMLAttributes = {
     paddingTop: "calc(5vh + 24px)",
   },
   input: {
-    width: 380,
+    width: mobile ? "auto" : 380,
     lineHeight: 1.5,
     border: "2px solid #CCCCCC",
     boxSizing: "border-box",
@@ -56,12 +48,12 @@ const styles: StyleHTMLAttributes = {
   boxesContainer: {
     display: "flex",
     justifyContent: "space-between",
-    width: "1000px",
+    width: mobile ? "auto" : "1000px",
     margin: "auto",
   },
   subContainer: {
     backgroundColor: "white",
-    width: "calc(1000px - 10vh)",
+    width: mobile ? "100%" : "calc(1000px - 10vh)",
     padding: "5vh",
     borderRadius: 20,
     margin: "auto",
@@ -93,22 +85,30 @@ const styles: StyleHTMLAttributes = {
     marginTop: "-5vh",
   },
   btnHover: { border: "2px solid #CCCCCC" },
-};
+});
 
-const Contact: React.FC<{ mobile?: boolean }> = ({ mobile }) => {
+const Contact: React.FC<{ mobile: boolean }> = ({ mobile }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [details, setDetails] = useState("");
-
+  const styles = generateStyles(mobile);
   return (
     <div id="contact">
       <div style={styles.container}>
         <p style={styles.title}>Get in touch</p>
         <div style={styles.boxesContainer}>
-          <ContactBox text="mohamed-j-34a510122" icon={Linkedin} />
-          <ContactBox text="+216 54 939 984" icon={Phone} />
-          <ContactBox text="mohamed.jerbi2012@gmail.com" icon={Mail} />
+          <ContactBox
+            mobile={mobile}
+            text="mohamed-j-34a510122"
+            icon={Linkedin}
+          />
+          <ContactBox mobile={mobile} text="+216 54 939 984" icon={Phone} />
+          <ContactBox
+            mobile={mobile}
+            text="mohamed.jerbi2012@gmail.com"
+            icon={Mail}
+          />
         </div>
         <div style={styles.subContainer}>
           <div
