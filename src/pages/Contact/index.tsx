@@ -36,8 +36,14 @@ const generateStyles: (mobile: boolean) => MyStyleHTMLAttributes = (
     padding: 24,
     paddingTop: "calc(5vh + 24px)",
   },
+  inputsContainer: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexWrap: "wrap",
+  },
   input: {
-    width: mobile ? "auto" : 380,
+    width: mobile ? "80vw" : 380,
     lineHeight: 1.5,
     border: "2px solid #CCCCCC",
     boxSizing: "border-box",
@@ -49,15 +55,16 @@ const generateStyles: (mobile: boolean) => MyStyleHTMLAttributes = (
   },
   boxesContainer: {
     display: "flex",
-    justifyContent: "space-between",
-    width: mobile ? "auto" : "1000px",
+    justifyContent: mobile ? "center" : "space-between",
+    width: mobile ? "100%" : "1000px",
     margin: "auto",
+    flexWrap: "wrap",
   },
   subContainer: {
     backgroundColor: "white",
-    width: mobile ? "100%" : "calc(1000px - 10vh)",
-    padding: "5vh",
-    borderRadius: 20,
+    width: mobile ? "calc(100% - 64px)" : "calc(1000px - 10vh)",
+    padding: mobile ? 16 : "5vh",
+    borderRadius: mobile ? 10 : 20,
     margin: "auto",
     marginTop: "10vh",
   },
@@ -113,13 +120,7 @@ const Contact: React.FC<{ mobile: boolean }> = ({ mobile }) => {
           />
         </div>
         <div style={styles.subContainer}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
+          <div style={styles.inputsContainer}>
             <div>
               <p style={styles.text}>Full Name:</p>
               <input

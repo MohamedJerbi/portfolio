@@ -19,6 +19,7 @@ const generateStyles: (mobile: boolean) => StyleHTMLAttributes = (mobile) => ({
     transitionDuration: "600ms",
     transitionTimingFunction: "ease-out",
     cursor: "pointer",
+    margin: mobile ? 16 : 0,
   },
   icon: { margin: "auto" },
   text: {
