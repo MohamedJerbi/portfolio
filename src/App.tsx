@@ -43,7 +43,11 @@ const generateStyles: (mobile: boolean) => StyleHTMLAttributes = (
   copyrights: {
     backgroundColor: "#FFD8D8",
     textAlign: "center",
-    lineHeight: 0.5,
+    height: 40,
+  },
+  link: {
+    textDecoration: "none",
+    color: "#9848D7",
   },
 });
 
@@ -79,10 +83,15 @@ function App() {
       <Contact mobile={mobile} />
       <div style={styles.copyrights}>
         {"Copyright © "}
-        <a color="inherit" href="https://mohamedjerbi.me" target="_blank">
+        <a
+          style={styles.link}
+          href="https://mohamedjerbi.me"
+          target="_blank"
+          rel="noreferrer"
+        >
           Mohamed Jerbi
         </a>
-        {new Date().getFullYear()}
+        {" " + new Date().getFullYear()}
       </div>
     </div>
   );
