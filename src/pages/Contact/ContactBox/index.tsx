@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react";
+import React from "react";
 import { StyleHTMLAttributes } from "../../../utils/interfaces";
 
 interface Props {
@@ -7,14 +7,7 @@ interface Props {
   mobile: boolean;
 }
 
-interface MyStyleHTMLAttributes extends StyleHTMLAttributes {
-  [prop: string]: CSSProperties;
-  boxHover?: any;
-}
-
-const generateStyles: (mobile: boolean) => MyStyleHTMLAttributes = (
-  mobile
-) => ({
+const generateStyles: (mobile: boolean) => StyleHTMLAttributes = (mobile) => ({
   container: {
     display: "flex",
     flexDirection: "column",
@@ -33,10 +26,6 @@ const generateStyles: (mobile: boolean) => MyStyleHTMLAttributes = (
     fontSize: 16,
     textTransform: "lowercase",
     color: "#2F2E41",
-  },
-  boxHover: {
-    cursor: "pointer",
-    backgroundColor: "white",
   },
 });
 

@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react";
+import React from "react";
 import { StyleHTMLAttributes } from "../../utils/interfaces";
 import CercleShape from "./CercleShape";
 import useWindowDimensions from "./useWindowDimensions";

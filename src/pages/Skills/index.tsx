@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react";
+import React from "react";
 import SkillCard from "./SkillCard";
 import skillsInfo from "./skillsInfo";
 import palette from "../../palette";

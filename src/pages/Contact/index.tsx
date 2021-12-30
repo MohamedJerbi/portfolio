@@ -1,17 +1,19 @@
-import React, { useState, CSSProperties } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import ContactBox from "./ContactBox";
 import Linkedin from "../../assets/ContactIcons/linkedin.svg";
 import Phone from "../../assets/ContactIcons/phone.svg";
 import Mail from "../../assets/ContactIcons/mail.svg";
 import palette from "../../palette";
+import { StyleHTMLAttributes } from "../../utils/interfaces";
 
-interface StyleHTMLAttributes {
-  [prop: string]: CSSProperties;
+interface MyStyleHTMLAttributes extends StyleHTMLAttributes {
   btnHover?: any;
 }
 
-const generateStyles: (mobile: boolean) => StyleHTMLAttributes = (mobile) => ({
+const generateStyles: (mobile: boolean) => MyStyleHTMLAttributes = (
+  mobile
+) => ({
   container: {
     backgroundColor: "#FFD8D8",
     clipPath: "polygon(0 5vh, 100% 0,100% 100% , 0 100%)",

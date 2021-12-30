@@ -1,4 +1,4 @@
-import React, { CSSProperties, Fragment } from "react";
+import React, { Fragment } from "react";
 import ProjectDetails from "./ProjectDetails";
 import projectsInfo from "./projectsInfo";
 import HelloSVG from "../../assets/Hello.svg";
