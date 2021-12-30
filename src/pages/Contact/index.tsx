@@ -6,6 +6,7 @@ import Phone from "../../assets/ContactIcons/phone.svg";
 import Mail from "../../assets/ContactIcons/mail.svg";
 import palette from "../../palette";
 import { StyleHTMLAttributes } from "../../utils/interfaces";
+import { sendContact } from "../../firebase/firebase.utils";
 
 interface MyStyleHTMLAttributes extends StyleHTMLAttributes {
   btnHover?: any;
@@ -94,29 +95,89 @@ const generateStyles: (mobile: boolean) => MyStyleHTMLAttributes = (
     marginTop: "-5vh",
   },
   btnHover: { border: "2px solid #CCCCCC" },
+  alert: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: 50,
+    zIndex: 2,
+    color: "white",
+    textAlign: "center",
+    fontSize: 19,
+    lineHeight: 0.5,
+  },
 });
 
+interface Info {
+  [prop: string]: string;
+}
+
+const contactInfo: Info = {
+  email: "mohamed.jerbi2012@gmail.com",
+  phone: "+216 54 939 984",
+  linkedinId: "mohamed-j-34a510122",
+  linkedinUrl: "https://www.linkedin.com/in/mohamed-j-34a510122/",
+};
+
 const Contact: React.FC<{ mobile: boolean }> = ({ mobile }) => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [subject, setSubject] = useState("");
-  const [details, setDetails] = useState("");
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [subject, setSubject] = useState<string>("");
+  const [details, setDetails] = useState<string>("");
+  const [status, setStatus] = useState<{
+    success: boolean;
+    message: string;
+  } | null>(null);
   const styles = generateStyles(mobile);
+  const handleSubmit = () => {
+    if (!(name && email && subject && details)) return;
+    sendContact(name, email, subject, details)
+      .then(() =>
+        setStatus({
+          success: true,
+          message: "Your message was sent succefully :)",
+        })
+      )
+      .catch(() =>
+        setStatus({
+          success: false,
+          message: "We encountered an error sending your message :/",
+        })
+      )
+      .finally(() => setTimeout(() => setStatus(null), 3000));
+  };
   return (
     <div id="contact">
+      <motion.div
+        animate={{
+          backgroundColor: status?.success ? "#00a152" : "#f44336",
+          opacity: status ? 1 : 0,
+        }}
+        style={styles.alert}
+      >
+        <p>{status?.message}</p>
+      </motion.div>
       <div style={styles.container}>
         <p style={styles.title}>Get in touch</p>
         <div style={styles.boxesContainer}>
           <ContactBox
             mobile={mobile}
-            text="mohamed-j-34a510122"
+            text={contactInfo.linkedinId}
             icon={Linkedin}
+            url={contactInfo.linkedinUrl}
           />
-          <ContactBox mobile={mobile} text="+216 54 939 984" icon={Phone} />
           <ContactBox
             mobile={mobile}
-            text="mohamed.jerbi2012@gmail.com"
+            text={contactInfo.phone}
+            icon={Phone}
+            url={"tel:" + contactInfo.phone}
+          />
+          <ContactBox
+            mobile={mobile}
+            text={contactInfo.email}
             icon={Mail}
+            url={"mailto:" + contactInfo.email}
           />
         </div>
         <div style={styles.subContainer}>
@@ -159,7 +220,11 @@ const Contact: React.FC<{ mobile: boolean }> = ({ mobile }) => {
             />
           </div>
           <div style={styles.btnContainer}>
-            <motion.button whileHover={styles.btnHover} style={styles.button}>
+            <motion.button
+              whileHover={styles.btnHover}
+              style={styles.button}
+              onClick={handleSubmit}
+            >
               Submit
             </motion.button>
           </div>

@@ -5,6 +5,7 @@ interface Props {
   icon: string;
   text: String;
   mobile: boolean;
+  url?: string;
 }
 
 const generateStyles: (mobile: boolean) => StyleHTMLAttributes = (mobile) => ({
@@ -30,8 +31,9 @@ const generateStyles: (mobile: boolean) => StyleHTMLAttributes = (mobile) => ({
   },
 });
 
-const ContactBox: React.FC<Props> = ({ icon, text, mobile }) => {
+const ContactBox: React.FC<Props> = ({ icon, text, mobile, url }) => {
   const styles = generateStyles(mobile);
+  const handleClick = () => url && window.open(url, "_blank");
   return (
     <div
       className="box"
@@ -44,6 +46,7 @@ const ContactBox: React.FC<Props> = ({ icon, text, mobile }) => {
         box.style["background-color"] = "transparent";
       }}
       style={styles.container}
+      onClick={handleClick}
     >
       <img style={styles.icon} src={icon} alt="icon" />
       <p style={styles.text}>{text}</p>
