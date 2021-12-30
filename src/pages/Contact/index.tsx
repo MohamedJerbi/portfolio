@@ -171,7 +171,7 @@ const Contact: React.FC<{ mobile: boolean }> = ({ mobile }) => {
             mobile={mobile}
             text={contactInfo.phone}
             icon={Phone}
-            url={"tel:" + contactInfo.phone}
+            url={"tel:" + contactInfo.phone.trim()}
           />
           <ContactBox
             mobile={mobile}
