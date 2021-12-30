@@ -40,6 +40,11 @@ const generateStyles: (mobile: boolean) => StyleHTMLAttributes = (
   },
   logo: { fontFamily: "Sawarabi Gothic", fontSize: 19, lineHeight: 29 },
   navBackground: { backgroundColor: palette.background.blue },
+  copyrights: {
+    backgroundColor: "#FFD8D8",
+    textAlign: "center",
+    lineHeight: 0.5,
+  },
 });
 
 function App() {
@@ -72,6 +77,13 @@ function App() {
       <Projects mobile={mobile} />
       <Skills />
       <Contact mobile={mobile} />
+      <div style={styles.copyrights}>
+        {"Copyright © "}
+        <a color="inherit" href="https://mohamedjerbi.me" target="_blank">
+          Mohamed Jerbi
+        </a>
+        {new Date().getFullYear()}
+      </div>
     </div>
   );
 }

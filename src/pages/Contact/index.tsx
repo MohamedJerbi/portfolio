@@ -153,6 +153,7 @@ const Contact: React.FC<{ mobile: boolean }> = ({ mobile }) => {
         animate={{
           backgroundColor: status?.success ? "#00a152" : "#f44336",
           opacity: status ? 1 : 0,
+          zIndex: status ? 2 : -1,
         }}
         style={styles.alert}
       >
